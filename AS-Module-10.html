@@ -1,0 +1,15 @@
+<h1 id="advanced-statistics-module-10---introduction-to-anova">Advanced Statistics Module 10 - Introduction to ANOVA</h1>
+<h1 id="introduction-to-anova">Introduction to ANOVA</h1>
+<p>&quot;A researcher is interested in the effects of drug against stress reaction. She gives a reaction time test to three different groups of subjects: one group that is under a great deal of stress, one group under a moderate amount of stress, and a third group that is under almost no stress. The subjects of the study were instructed to take the drug test during their next stress episode and to report their stress on a scale of 1 to 10 (10 being most pain).&quot;</p>
+<pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(readxl)
+Stress_data &lt;-<span class="st"> </span><span class="kw">read_excel</span>(<span class="st">&quot;C:/Users/adamw/Documents/Advanced Statistics/Stress data.xlsx&quot;</span>)</code></pre>
+<p>First we initialize and calculate the data using an analysis of variance test. For this calculation, I assigned each individual a corresponding number (1,2 or 3) indicating their stress group. 1 is High, 2 is Moderate and 3 is Low.</p>
+<pre class="sourceCode r"><code class="sourceCode r">aov =<span class="st"> </span><span class="kw">aov</span>(Stress_data$<span class="st">`</span><span class="dt">Stress Group</span><span class="st">`</span>~Stress_data$<span class="st">`</span><span class="dt">Stress Level</span><span class="st">`</span>)
+<span class="kw">summary</span>(aov)</code></pre>
+<pre><code>##                            Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## Stress_data$`Stress Level`  1  8.112   8.112   33.38 2.83e-05 ***
+## Residuals                  16  3.888   0.243                     
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>For the first test, we compare the stress levels compared to each group. Our null hypothesis in this case would be that there is no correlation between the pain level of individuals relative to which group they are in, while the alternative hypothesis is that there is a correlation. From the results, we see that the p value is quite small, .0000283 to be exact, so we can reject the null hypothesis and conclude that there is a correlation between pain level and stress level.</p>
+<p>We can also see here that our degree of freedom is 16, the squared sum of variation is 3.888 with a mean variation of .243, and our f-value is 33.38, which means the variation in our data set is quite high. This is likely because of the small sample size (n) value.</p>
